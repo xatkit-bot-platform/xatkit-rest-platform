@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OpenAPI Platform Model 
+Bundle-SymbolicName: com.xatkit.plugins.openapi.platform.model
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: com.xatkit.metamodels-utils;bundle-version="1.0.1",
+ org.eclipse.xtext.xbase.lib,
+ com.google.gson;bundle-version="2.8.2"
+Bundle-Vendor: SOM Research Lab
