@@ -1,14 +1,12 @@
 package com.xatkit.plugins.rest.platform.action;
 
 import com.google.gson.JsonElement;
-import com.mashape.unirest.http.Headers;
 import com.xatkit.core.platform.RuntimePlatform;
 import com.xatkit.core.platform.action.RuntimeAction;
 import com.xatkit.core.session.XatkitSession;
-import com.xatkit.plugins.rest.platform.utils.ApiResponse;
+import com.xatkit.plugins.rest.platform.RestPlatform;
 
 import javax.annotation.Nullable;
-import java.io.InputStream;
 import java.util.Map;
 
 import static fr.inria.atlanmod.commons.Preconditions.checkArgument;
@@ -24,8 +22,9 @@ import static java.util.Objects.nonNull;
  * also expects that the API response contains an empty body or a {@link JsonElement}.
  *
  * @param <T> the {@link RuntimePlatform} subclass containing this {@link RestAction}
+ * @param <E>
  */
-public abstract class RestRequest<T extends RuntimePlatform> extends RuntimeAction<T> {
+public abstract class RestRequest<E> extends RuntimeAction<RestPlatform> {
 
 
     
@@ -73,7 +72,7 @@ public abstract class RestRequest<T extends RuntimePlatform> extends RuntimeActi
     /**
      * The {@link JsonElement} to include in the request's body.
      */
-    protected Object requestBody;
+    protected E requestBody;
 
     /**
      * Constructs a new {@link RestAction}.
@@ -91,41 +90,36 @@ public abstract class RestRequest<T extends RuntimePlatform> extends RuntimeActi
      * @throws IllegalArgumentException if the provided {@code method} is {@code null}, or if the provided {@code
      *                                  restEndpoint} is {@code null} or {@code empty}
      */
-    public RestRequest(T runtimePlatform, XatkitSession session, MethodKind method,
+    public RestRequest(RestPlatform runtimePlatform, XatkitSession session, MethodKind method,
                       String restEndpoint,
                       @Nullable Map<String, Object> queryParameters,
-                      @Nullable Object requestBody,
+                      @Nullable Map<String,Object> pathParameters,
+                      @Nullable E requestBody,
                       @Nullable Map<String, String> headers,
-                      @Nullable Map<String,Object> formParameters,
-                      @Nullable Map<String,Object> pathParameters
+                      @Nullable Map<String,Object> formParameters
                      ) {
         super(runtimePlatform, session);
         checkArgument(nonNull(method), "Cannot construct a %s action with the provided method %s", this.getClass().getSimpleName(), method);
         checkArgument(nonNull(restEndpoint) && !restEndpoint.isEmpty(), "Cannot construct a %s action with the " +
                 "provided REST endpoint %s", this.getClass().getSimpleName(), restEndpoint);
-        checkArgument((nonNull(requestBody) ^ (nonNull(formParameters) && !formParameters.isEmpty())) || (!nonNull(requestBody) && !(nonNull(formParameters) && formParameters.isEmpty())), "Cannot construct a request with both formData and request body" + 
-                this.getClass().getSimpleName(), method);
+
         this.method = method;
         this.headers = headers;
         this.restEndpoint = restEndpoint;
         this.queryParameters = queryParameters;
         this.formParameters = formParameters;
         this.requestBody = requestBody;
+        addDefaultParameters();
     }
 
+    private void addDefaultParameters() {
+    	Map<String, Object> queryParameters = runtimePlatform.getDefaultQueryParameters();
+    	if(nonNull(queryParameters) && !queryParameters.isEmpty()) {
+    		queryParameters.forEach((k,v)-> this.queryParameters.putIfAbsent(k, v));
+    	}
+    }
 
-    /**
-     * Handles the REST API response and computes the action's results
-     * <p>
-     * This method is overridden in concrete subclasses to implement action-specific behaviors.
-     *
-     * @param headers     the {@link Headers} returned by the REST API
-     * @param statusCode      the status code returned by the REST API
-     * @param statusText      the status text returned by the REST API
-     * @param body the {@link InputStream} containing the response body
-     * @return the action's result
-     */
-    protected abstract ApiResponse<?> handleResponse(Headers headers, int statusCode, String statusText, InputStream body);
+ 
 
     /**
      * The kind of REST methods supported by this class.

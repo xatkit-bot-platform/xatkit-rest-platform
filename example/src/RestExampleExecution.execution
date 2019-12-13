@@ -1,0 +1,32 @@
+import library "RestBotExample/src/RestExampleLibrary.intent" as RestLibrary
+import library "CoreLibrary"
+import platform "rest-platform-model/src/RestPlatform.platform" as RestPlatform
+import platform "ReactPlatform"
+
+use provider ReactPlatform.ReactEventProvider
+use provider ReactPlatform.ReactIntentProvider
+
+
+on intent Default_Fallback_Intent do
+	ReactPlatform.Reply("This is awkward. I could not treat your request")
+	ReactPlatform.Reply("Would you please try again")
+
+on intent HowIsTheWeather do
+	val city = context.get("Weather").get("cityName") as String
+	val queryParamters = newHashMap
+	queryParamters.put("q", city)
+	val response = RestPlatform.GetJsonRequest("http://api.openweathermap.org/data/2.5/weather", queryParamters, emptyMap, emptyMap)
+	if(response.status === 200){
+	
+		val temp = Math.round(response.body.asJsonObject?.get("main").asJsonObject.get("temp").asDouble)
+		val temp_min = Math.round(response.body.asJsonObject.get("main").asJsonObject.get("temp_min").asDouble)
+		val temp_max = Math.round(response.body.asJsonObject.get("main").asJsonObject.get("temp_max").asDouble)
+		val weather =  response.body.asJsonObject.get("weather").asJsonArray.get(0).asJsonObject.get("description").asString
+		val weather_icon =  "http://openweathermap.org/img/wn/" +  response.body.asJsonObject.get("weather").asJsonArray.get(0).asJsonObject.asJsonObject.get("icon").asString+".png"
+		
+		ReactPlatform.Reply("The current weather is  "+temp+" &deg;C with "+weather+" !["+weather+"]("+weather_icon+") with a high of "+temp_max+" &deg;C and a low of "+temp_min+" &deg;C ")
+	
+		}
+		else if(response.status === 404) {
+			ReactPlatform.Reply("Oops, I could not find this city")
+		}

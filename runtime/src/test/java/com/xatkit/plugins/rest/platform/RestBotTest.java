@@ -1,4 +1,4 @@
-package com.xatkit.plugins.restplatform;
+package com.xatkit.plugins.rest.platform;
 
 
 import com.xatkit.Xatkit;
@@ -9,7 +9,7 @@ import com.xatkit.Xatkit;
 public class RestBotTest {
 
     public static void main(String[] args) throws Exception {
-        Xatkit.main(new String[]{"<path/to/properties>"});
+        Xatkit.main(new String[]{"C:\\Users\\hamza\\git\\xatkit-rest-platform\\example\\RestBotExample.properties"});
         try {
             Thread.sleep(10000000);
         } catch (InterruptedException e) {

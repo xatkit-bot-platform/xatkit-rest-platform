@@ -1,8 +1,13 @@
-Platform OpenAPIPlatform
+Platform RestPlatform
 
 path "com.xatkit.plugins.rest.platform.RestPlatform"
 
 actions {
-	GetRequestJson(endpoint: String, queryParameter: java.util.Map<String,Object>): com.xatkit.plugins.rest.platform.RestPlatform.utils.ApiResponse<com.google.gson.JsonElement>
-
+	GetJsonRequest(endpoint: String, queryParameter: java.util.Map<String,Object>, pathParams: java.util.Map<String,Object>, headers:  java.util.Map<String, String>): com.xatkit.plugins.rest.platform.utils.ApiResponse<com.google.gson.JsonElement>
+	
+	GetJsonRequestWithBody(endpoint: String, queryParameter: java.util.Map<String,Object>, pathParams: java.util.Map<String, Object>, requestBody: com.google.gson.JsonElement, headers: java.util.Map<String, String>): com.xatkit.plugins.rest.platform.utils.ApiResponse<com.google.gson.JsonElement>		
+	
+	GetJsonRequestWithFormData(endpoint: String, queryParameter: java.util.Map<String,Object>, pathParams: java.util.Map<String, Object>, headers: java.util.Map<String, String>, formParameters: java.util.Map<String, Object>): com.xatkit.plugins.rest.platform.utils.ApiResponse<com.google.gson.JsonElement>		
+	
+	
 }

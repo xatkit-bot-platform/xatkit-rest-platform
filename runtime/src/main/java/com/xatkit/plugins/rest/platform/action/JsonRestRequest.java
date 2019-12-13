@@ -11,17 +11,20 @@ import com.mashape.unirest.http.Headers;
 import com.xatkit.core.session.XatkitSession;
 import com.xatkit.plugins.rest.platform.RestPlatform;
 import com.xatkit.plugins.rest.platform.utils.ApiResponse;
+import com.xatkit.plugins.rest.platform.utils.ResponseHandler;
 
-public class GetRequestJson extends GetRestRequest<RestPlatform> {
+public abstract class JsonRestRequest extends RestRequest<JsonElement>  implements ResponseHandler<JsonElement>  {
 
-	public GetRequestJson(RestPlatform runtimePlatform, XatkitSession session, String restEndpoint,
-			Map<String, Object> queryParams, Object requestBody, Map<String, String> headers,
-			Map<String, Object> formParams, Map<String, Object> pathParams) {
-		super(runtimePlatform, session, restEndpoint, queryParams, requestBody, headers, formParams, pathParams);
+	public JsonRestRequest(RestPlatform runtimePlatform, XatkitSession session, MethodKind method, String restEndpoint,
+			Map<String, Object> queryParameters, Map<String, Object> pathParameters, JsonElement requestBody,
+			Map<String, String> headers, Map<String, Object> formParameters) {
+		super(runtimePlatform, session, method, restEndpoint, queryParameters, pathParameters, requestBody, headers,
+				formParameters);
+		
 	}
 
 	@Override
-	protected final ApiResponse<JsonElement> handleResponse(Headers headers, int statusCode, String statusText,
+	public ApiResponse<JsonElement> handleResponse(Headers headers, int statusCode, String statusText,
 			InputStream body) {
 		ApiResponse<JsonElement> apiResponse = new ApiResponse<JsonElement>();
 
@@ -32,7 +35,8 @@ public class GetRequestJson extends GetRestRequest<RestPlatform> {
 		apiResponse.setStatusText(statusText);
 
 		return apiResponse;
-
 	}
+	
+	
 
 }
