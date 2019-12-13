@@ -1,4 +1,4 @@
 # xatkit Rest Platform
 
-provides actions to send REST requests
+Provides actions to send REST requests
 
