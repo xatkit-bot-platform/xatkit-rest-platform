@@ -7,6 +7,7 @@ import static java.util.Objects.nonNull;
 import java.io.InputStream;
 import java.util.Map;
 
+import com.google.gson.JsonElement;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.request.HttpRequest;
@@ -14,11 +15,12 @@ import com.mashape.unirest.request.HttpRequestWithBody;
 import com.xatkit.core.session.XatkitSession;
 import com.xatkit.plugins.rest.platform.RestPlatform;
 import com.xatkit.plugins.rest.platform.utils.ApiResponse;
+import com.xatkit.plugins.rest.platform.utils.Helpers;
 
 import fr.inria.atlanmod.commons.log.Log;
 
 
-public class GetJsonRequestWithFormData extends JsonRestRequest {
+public class GetJsonRequestWithFormData extends RestRequest<JsonElement,JsonElement>  {
 
    
     public GetJsonRequestWithFormData(RestPlatform runtimePlatform, XatkitSession session, String restEndpoint, Map<String, Object> queryParams, Map<String, Object> pathParams, Map<String, String> headers, Map<String, Object> formParams ) {
@@ -42,10 +44,10 @@ public class GetJsonRequestWithFormData extends JsonRestRequest {
     	if(nonNull(requestBody))
     		((HttpRequestWithBody)request).body(requestBody.toString());
          
-    	Log.info("Sent GET query on {0}", request.getUrl());
+    	Log.info("Sent GET request on {0}", request.getUrl());
     
         HttpResponse<InputStream> response = request.asBinary();
-        return this.handleResponse(response.getHeaders(), response.getStatus(), response.getStatusText(), response.getBody());
+        return handleResponse(response.getHeaders(), response.getStatus(), response.getStatusText(), response.getBody(),Helpers::parseJson);
     }
 
 
