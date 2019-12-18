@@ -18,6 +18,6 @@ public interface ResponseHandler<T> {
      * @param body the {@link InputStream} containing the response body
      * @return the action's result
      */
-	ApiResponse<T> handleResponse(Headers headers, int statusCode, String statusText, InputStream body);
+	T handleResponse(InputStream body);
 
 }

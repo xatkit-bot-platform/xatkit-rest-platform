@@ -1,10 +1,13 @@
 package com.xatkit.plugins.rest.platform.action;
 
 import com.google.gson.JsonElement;
+import com.mashape.unirest.http.Headers;
 import com.xatkit.core.platform.RuntimePlatform;
 import com.xatkit.core.platform.action.RuntimeAction;
 import com.xatkit.core.session.XatkitSession;
 import com.xatkit.plugins.rest.platform.RestPlatform;
+import com.xatkit.plugins.rest.platform.utils.ApiResponse;
+import com.xatkit.plugins.rest.platform.utils.ResponseHandler;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -12,19 +15,19 @@ import java.util.Map;
 import static fr.inria.atlanmod.commons.Preconditions.checkArgument;
 import static java.util.Objects.nonNull;
 
+import java.io.InputStream;
+import java.util.List;
+
 /**
  * A generic REST action.
  * <p>
- * This action provides the execution logic to compute GET and POST REST requests over a provided endpoint. Request
+ * This action provides the execution logic to compute HTTP requests over a provided endpoint. Request
  * parameters, headers, and body can be specified through the constructor parameters.
- * <p>
- * <b>Note</b>: this class assumes that the requested REST API expects nothing or JSON in the query body. This class
- * also expects that the API response contains an empty body or a {@link JsonElement}.
- *
+ * 
  * @param <T> the {@link RuntimePlatform} subclass containing this {@link RestAction}
  * @param <E>
  */
-public abstract class RestRequest<E> extends RuntimeAction<RestPlatform> {
+public abstract class RestRequest<E,T> extends RuntimeAction<RestPlatform> {
 
 
     
@@ -119,7 +122,19 @@ public abstract class RestRequest<E> extends RuntimeAction<RestPlatform> {
     	}
     }
 
- 
+
+	
+	protected ApiResponse<T> handleResponse(Headers headers, int statusCode, String statusText,
+			InputStream body, ResponseHandler<T> responseHandler) {
+		ApiResponse<T> apiResponse = new ApiResponse<T>();
+		apiResponse.setBody(responseHandler.handleResponse(body));
+		apiResponse.setHeaders(((Map<String, List<String>>) headers));
+		apiResponse.setStatus(statusCode);
+		apiResponse.setStatusText(statusText);
+
+		return apiResponse;
+	}
+	
 
     /**
      * The kind of REST methods supported by this class.
@@ -128,6 +143,7 @@ public abstract class RestRequest<E> extends RuntimeAction<RestPlatform> {
         GET,
         POST,
         PUT,
-        DELETE
+        DELETE,
+        OPTIONS
     }
 }
