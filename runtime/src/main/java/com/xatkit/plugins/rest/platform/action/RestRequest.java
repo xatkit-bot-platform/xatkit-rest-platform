@@ -1,6 +1,5 @@
 package com.xatkit.plugins.rest.platform.action;
 
-import com.google.gson.JsonElement;
 import com.mashape.unirest.http.Headers;
 import com.xatkit.core.platform.RuntimePlatform;
 import com.xatkit.core.platform.action.RuntimeAction;
@@ -24,8 +23,8 @@ import java.util.List;
  * This action provides the execution logic to compute HTTP requests over a provided endpoint. Request
  * parameters, headers, and body can be specified through the constructor parameters.
  * 
- * @param <T> the {@link RuntimePlatform} subclass containing this {@link RestAction}
- * @param <E>
+ * @param <E> the request payload type
+ * @param <T> the response payload type
  */
 public abstract class RestRequest<E,T> extends RuntimeAction<RestPlatform> {
 
@@ -63,17 +62,20 @@ public abstract class RestRequest<E,T> extends RuntimeAction<RestPlatform> {
     /**
      * A {@link Map} containing path parameters to include in the request.
      * <p>
-     * This {@link Map} is filled with the following template {@code param_name -> param_value}. Note that the
-     * {@link Map}'s values are {@link Object}s in order to support multipart body.
+     * This {@link Map} is filled with the following template {@code param_name -> param_value}.
      */
-    protected Map<String, Object> pathParameters;
+    protected Map<String, String> pathParameters;
     
     
-    
+    /**
+     * A {@link Map} containing form data parameters to include in the request.
+     * <p>
+     * This {@link Map} is filled with the following template {@code param_name -> param_value}.
+     */
     protected Map<String, Object> formParameters;
 
     /**
-     * The {@link JsonElement} to include in the request's body.
+     * The object to include in the request's body.
      */
     protected E requestBody;
 
@@ -86,9 +88,11 @@ public abstract class RestRequest<E,T> extends RuntimeAction<RestPlatform> {
      * @param session         the {@link XatkitSession} associated to this action
      * @param method          the REST method to use
      * @param restEndpoint    the REST API endpoint to request
-     * @param requestParameters	the {@link Map} of query parameters to include in the request
+     * @param queryParameters	the {@link Map} of query parameters to include in the request
+     * @param pathParameters the {@link Map} of path parameters to include in the request
+     * @param requestBody 	the content of the payload of the request
      * @param headers         the {@link Map} of user-defined headers to include in the request
-     * @param jsonContent     the {@link JsonElement} to include in the request's body
+     * @param formParameters     the {@link Map} of the form parameters to include in the request
      * @throws NullPointerException     if the provided {@code runtimePlatform} or {@code session} is {@code null}
      * @throws IllegalArgumentException if the provided {@code method} is {@code null}, or if the provided {@code
      *                                  restEndpoint} is {@code null} or {@code empty}
@@ -96,7 +100,7 @@ public abstract class RestRequest<E,T> extends RuntimeAction<RestPlatform> {
     public RestRequest(RestPlatform runtimePlatform, XatkitSession session, MethodKind method,
                       String restEndpoint,
                       @Nullable Map<String, Object> queryParameters,
-                      @Nullable Map<String,Object> pathParameters,
+                      @Nullable Map<String,String> pathParameters,
                       @Nullable E requestBody,
                       @Nullable Map<String, String> headers,
                       @Nullable Map<String,Object> formParameters
@@ -110,20 +114,39 @@ public abstract class RestRequest<E,T> extends RuntimeAction<RestPlatform> {
         this.headers = headers;
         this.restEndpoint = restEndpoint;
         this.queryParameters = queryParameters;
+        this.pathParameters = pathParameters;
         this.formParameters = formParameters;
         this.requestBody = requestBody;
         addDefaultParameters();
     }
 
+    
+    
+    /**
+     * Adds default parameters from the configuration file
+     */
     private void addDefaultParameters() {
     	Map<String, Object> queryParameters = runtimePlatform.getDefaultQueryParameters();
     	if(nonNull(queryParameters) && !queryParameters.isEmpty()) {
     		queryParameters.forEach((k,v)-> this.queryParameters.putIfAbsent(k, v));
     	}
+    	Map<String, String> defaultHeaders = runtimePlatform.getDefaultHeaders();
+    	if(nonNull(defaultHeaders) && !defaultHeaders.isEmpty()) {
+    		defaultHeaders.forEach((k,v)-> this.headers.putIfAbsent(k, v));
+    	}
     }
 
 
 	
+	/**
+	 * constructs an {@link ApiResponse}} from the response of the HTTP request
+	 * @param headers	the headers returned as part of the response
+	 * @param statusCode	the status code of the response
+	 * @param statusText	the status text of the response
+	 * @param body	the body of the response 
+	 * @param responseHandler a {@link FunctionalInterface} to handle the payload of the response
+	 * @return an {@link ApiResponse} instance
+	 */
 	protected ApiResponse<T> handleResponse(Headers headers, int statusCode, String statusText,
 			InputStream body, ResponseHandler<T> responseHandler) {
 		ApiResponse<T> apiResponse = new ApiResponse<T>();
@@ -143,7 +166,6 @@ public abstract class RestRequest<E,T> extends RuntimeAction<RestPlatform> {
         GET,
         POST,
         PUT,
-        DELETE,
-        OPTIONS
+        DELETE
     }
 }

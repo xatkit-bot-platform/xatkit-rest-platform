@@ -18,6 +18,8 @@ public abstract class RestRequestTest extends AbstractXatkitTest {
 
 
     protected static String VALID_GET_ENDPOINT = "http://httpbin.org/get";
+    
+    protected static String VALID_POST_ENDPOINT = "http://httpbin.org/post";
 
    
 

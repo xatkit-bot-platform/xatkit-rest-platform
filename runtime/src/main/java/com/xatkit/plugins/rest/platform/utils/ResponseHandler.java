@@ -2,22 +2,19 @@ package com.xatkit.plugins.rest.platform.utils;
 
 import java.io.InputStream;
 
-import com.mashape.unirest.http.Headers;
 
+/**
+ * A {@link FunctionalInterface} to handle the response returned by a request for the target element <T>
+ *
+ * @param <T> the concrete type of the response
+ */
 @FunctionalInterface
 public interface ResponseHandler<T> {
 	
-	   /**
-     * Handles the REST API response and computes the action's results
-     * <p>
-     * This method is overridden in concrete subclasses to implement action-specific behaviors.
-     *
-     * @param headers     the {@link Headers} returned by the REST API
-     * @param statusCode      the status code returned by the REST API
-     * @param statusText      the status text returned by the REST API
-     * @param body the {@link InputStream} containing the response body
-     * @return the action's result
-     */
+	/** Transform an {@link InputStream} instance to a target type
+	 * @param body body of the response as an {@link InputStream} instance
+	 * @return decoded response in the target format
+	 */
 	T handleResponse(InputStream body);
 
 }

@@ -1,8 +1,6 @@
 package com.xatkit.plugins.rest.platform;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.Test;
 
