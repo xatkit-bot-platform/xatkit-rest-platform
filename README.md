@@ -1,38 +1,36 @@
-# xatkit Rest Platform
+Xatkit Rest Platform
+=====
 
-Provides actions to send REST requests
+[![License Badge](https://img.shields.io/badge/license-EPL%202.0-brightgreen.svg)](https://opensource.org/licenses/EPL-2.0)
+[![Wiki Badge](https://img.shields.io/badge/doc-wiki-blue)](https://github.com/xatkit-bot-platform/xatkit/wiki/Xatkit-Rest-Platform)
+
+A set of actions to perform REST requests and handle responses.
 
 
+## Providers
 
-## Usage example
+The Rest platform does not define any provider.
 
-```
-intent HowIsTheWeather {
-	inputs {
-		"How is the weather today in XXX?"
-		"What is the forecast for today in XXX?"
-	}
-	creates context Weather {
-		sets parameter "cityName" from fragment "XXX" (entity any)
-	}
-}
+## Actions
 
-on intent HowIsTheWeather do
-	val city = context.get("Weather").get("cityName") as String
-	val queryParamters = newHashMap
-	queryParamters.put("q", city)
-	val response = RestPlatform.GetJsonRequest("http://api.openweathermap.org/data/2.5/weather", queryParamters, emptyMap, emptyMap)
-	if(response.status === 200){
-		val temp = Math.round(response.body.asJsonObject?.get("main").asJsonObject.get("temp").asDouble)
-		val temp_min = Math.round(response.body.asJsonObject.get("main").asJsonObject.get("temp_min").asDouble)
-		val temp_max = Math.round(response.body.asJsonObject.get("main").asJsonObject.get("temp_max").asDouble)
-		val weather =  response.body.asJsonObject.get("weather").asJsonArray.get(0).asJsonObject.get("description").asString
-		val weather_icon =  "http://openweathermap.org/img/wn/" +  response.body.asJsonObject.get("weather").asJsonArray.get(0).asJsonObject.asJsonObject.get("icon").asString+".png"	
-		ReactPlatform.Reply("The current weather is  "+temp+" &deg;C with "+weather+" !["+weather+"]("+weather_icon+") with a high of "+temp_max+" &deg;C and a low of "+temp_min+" &deg;C ")
-	
-		}
-		else if(response.status === 404) {
-			ReactPlatform.Reply("Oops, I could not find this city")
-		}
-```
-![Screenshot](https://raw.githubusercontent.com/xatkit-bot-platform/xatkit-rest-platform/master/example/weatherbot.png)
+| Action                 | Parameters                                                   | Return                               | Return Type                | Description                                                  |
+| ---------------------- | ------------------------------------------------------------ | ------------------------------------ | -------------------------- | ------------------------------------------------------------ |
+| GetJsonRequest         | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers | The response from the REST endpoint. | `ApiResponse<JsonElement>` | Performs a GET request on the provided `endpoint` with the specified parameters. |
+| GetJsonRequestWithBody | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `requestBody` (**JsonElement**, *Optional*): the request body<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers | The response from the REST endpoint  | `ApiResponse<JsonElement>` | Performs a GET request on the provided `endpoint` with the specified parameters and the given `body`. |
+| GetJsonRequestWithFormData | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers<br/>- `formParameters` (**Map<String, Object>**, *Optional*): the request form parameters | The response from the REST endpoint  | `ApiResponse<JsonElement>` | Performs a GET request on the provided `endpoint` with the specified parameters and the given `formParameters`. |
+| PostJsonRequestWithBody | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `requestBody` (**JsonElement**, *Optional*): the request body<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers | The response from the REST endpoint  | `ApiResponse<JsonElement>` | Performs a POST request on the provided `endpoint` with the specified parameters and the given `body`. |
+| PostJsonRequestWithFormData | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers<br/>- `formParameters` (**Map<String, Object>**, *Optional*): the request form parameters | The response from the REST endpoint  | `ApiResponse<JsonElement>` | Performs a POST request on the provided `endpoint` with the specified parameters and the given `formParameters`. |
+| PutJsonRequestWithBody | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `requestBody` (**JsonElement**, *Optional*): the request body<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers | The response from the REST endpoint  | `ApiResponse<JsonElement>` | Performs a PUT request on the provided `endpoint` with the specified parameters and the given `body`. |
+| PutJsonRequestWithFormData | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers<br/>- `formParameters` (**Map<String, Object>**, *Optional*): the request form parameters | The response from the REST endpoint  | `ApiResponse<JsonElement>` | Performs a PUT request on the provided `endpoint` with the specified parameters and the given `formParameters`. |
+| DeleteJsonRequest         | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers | The response from the REST endpoint. | `ApiResponse<JsonElement>` | Performs a DELETE request on the provided `endpoint` with the specified parameters. |
+| DeleteJsonRequestWithBody | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `requestBody` (**JsonElement**, *Optional*): the request body<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers | The response from the REST endpoint  | `ApiResponse<JsonElement>` | Performs a DELETE request on the provided `endpoint` with the specified parameters and the given `body`. |
+| DeleteJsonRequestWithFormData | - `endpoint` (**String**): the REST endpoint to send the request to<br/>- `queryParameters` (**Map<String, Object>**, *Optional*): the request parameters<br/>- `pathParameters` (**Map<String, String>**, *Optional*): the request path parameters<br/>- `headers` (**Map<String, String>**, *Optional*): the request headers<br/>- `formParameters` (**Map<String, Object>**, *Optional*): the request form parameters | The response from the REST endpoint  | `ApiResponse<JsonElement>` | Performs a DELETE request on the provided `endpoint` with the specified parameters and the given `formParameters`. |
+
+## Options
+
+The Rest platform supports the following configuration options
+
+| Key                                | Values  | Description                                                  | Constraint                                                   |
+| ---------------------------------- | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `xatkit.rest.default.query.parameters`          | String  | The default parameters to add to the sent REST request. This value must match the following pattern: `param1=value1&param2=value2` | **Optional** (default to no query parameter) |
+| `xatkit.rest.default.headers`          | String  | The default headers to add to the sent REST request. This value must match the following pattern: `headerName1:value1&headerName2:value2` | **Optional** (default to no headers) |
