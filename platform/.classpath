@@ -9,6 +9,6 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/rest-platform-1.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Gwendal/Documents/Dev/xatkit/xatkit/platforms/xatkit-rest-platform/runtime/target/xatkit-rest-runtime-2.0.0-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

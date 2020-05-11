@@ -10,11 +10,13 @@ import java.io.InputStream;
  */
 @FunctionalInterface
 public interface ResponseHandler<T> {
-	
-	/** Transform an {@link InputStream} instance to a target type
-	 * @param body body of the response as an {@link InputStream} instance
-	 * @return decoded response in the target format
-	 */
-	T handleResponse(InputStream body);
+
+    /**
+     * Transform an {@link InputStream} instance to a target type
+     *
+     * @param body body of the response as an {@link InputStream} instance
+     * @return decoded response in the target format
+     */
+    T handleResponse(InputStream body);
 
 }
