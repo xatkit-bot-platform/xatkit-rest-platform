@@ -27,7 +27,7 @@ public class GetJsonRequestTest extends AbstractRestRequestTest<GetJsonRequest> 
                 Collections.emptyMap(), null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void constructNullEndpoint() {
         new GetJsonRequest(platform, session, null, Collections.emptyMap(), Collections.emptyMap(),
                 Collections.emptyMap());
