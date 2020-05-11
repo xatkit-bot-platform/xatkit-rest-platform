@@ -118,21 +118,19 @@ public abstract class RestRequest<E, T> extends RuntimeAction<RestPlatform> {
         addDefaultParameters();
     }
 
-
     /**
      * Adds default parameters from the configuration file
      */
     private void addDefaultParameters() {
-        Map<String, Object> queryParameters = runtimePlatform.getDefaultQueryParameters();
+        Map<String, Object> queryParameters = runtimePlatform.getConfiguration().getDefaultQueryParameters();
         if (nonNull(queryParameters) && !queryParameters.isEmpty()) {
             queryParameters.forEach((k, v) -> this.queryParameters.putIfAbsent(k, v));
         }
-        Map<String, String> defaultHeaders = runtimePlatform.getDefaultHeaders();
+        Map<String, String> defaultHeaders = runtimePlatform.getConfiguration().getDefaultHeaders();
         if (nonNull(defaultHeaders) && !defaultHeaders.isEmpty()) {
             defaultHeaders.forEach((k, v) -> this.headers.putIfAbsent(k, v));
         }
     }
-
 
     /**
      * constructs an {@link ApiResponse}} from the response of the HTTP request

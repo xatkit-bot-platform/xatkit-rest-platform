@@ -16,6 +16,7 @@
         <junit.version>4.12</junit.version>
         <assertj.version>3.14.0</assertj.version>
         <mockito-version>3.3.3</mockito-version>
+        <lombok.version>1.18.12</lombok.version>
     </properties>
 
     <dependencies>
@@ -35,6 +36,13 @@
             <version>5.0.0-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
+        </dependency>
+
+        <!-- Utils -->
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
         <!-- Tests -->
@@ -58,6 +66,15 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- Utils -->
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
             <!-- Tests -->
 
