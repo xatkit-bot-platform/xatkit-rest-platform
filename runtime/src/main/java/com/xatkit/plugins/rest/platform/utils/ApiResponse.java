@@ -11,12 +11,10 @@ import java.util.Map;
  */
 public class ApiResponse<T> {
 
-
     /**
      * The headers of the response
      */
     private Map<String, List<String>> headers;
-
 
     /**
      * The status code of the response
@@ -28,12 +26,10 @@ public class ApiResponse<T> {
      */
     private String statusText;
 
-
     /**
      * The body of the response
      */
     private T body;
-
 
     public int getStatus() {
         return status;
@@ -58,7 +54,6 @@ public class ApiResponse<T> {
     public void setBody(T body) {
         this.body = body;
     }
-
 
     public Map<String, List<String>> getHeaders() {
         return headers;

@@ -27,16 +27,14 @@ import static java.util.Objects.nonNull;
  */
 public class GetJsonRequestWithFormData extends RestRequest<JsonElement, JsonElement> {
 
-
     /**
      * Constructs a GET Json request with form data
      *
      * @param runtimePlatform the {@link RuntimePlatform} containing this action
      * @param session         the {@link XatkitSession} associated to this action
-     * @param method          the REST method to use
      * @param restEndpoint    the REST API endpoint to request
-     * @param queryParameters the {@link Map} of query parameters to include in the request
-     * @param pathParameters  the {@link Map} of path parameters to include in the request
+     * @param queryParams     the {@link Map} of query parameters to include in the request
+     * @param pathParams      the {@link Map} of path parameters to include in the request
      * @param headers         the {@link Map} of user-defined headers to include in
      *                        the request
      * @param formParams      the {@link Map} of form parameters to include in the request
@@ -46,9 +44,7 @@ public class GetJsonRequestWithFormData extends RestRequest<JsonElement, JsonEle
             String> headers, Map<String, Object> formParams) {
         super(runtimePlatform, session, MethodKind.GET, restEndpoint, queryParams, pathParams, null, headers,
                 formParams);
-
     }
-
 
     /**
      * Computes the request
@@ -75,6 +71,4 @@ public class GetJsonRequestWithFormData extends RestRequest<JsonElement, JsonEle
         return handleResponse(response.getHeaders(), response.getStatus(), response.getStatusText(),
                 response.getBody(), Helpers::parseJson);
     }
-
-
 }

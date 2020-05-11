@@ -33,11 +33,10 @@ public class DeleteJsonRequestWithBody extends RestRequest<JsonElement, JsonElem
      *
      * @param runtimePlatform the {@link RuntimePlatform} containing this action
      * @param session         the {@link XatkitSession} associated to this action
-     * @param method          the REST method to use
      * @param restEndpoint    the REST API endpoint to request
      * @param requestBody     the body of the request
-     * @param queryParameters the {@link Map} of query parameters to include in the request
-     * @param pathParameters  the {@link Map} of path parameters to include in the request
+     * @param queryParams     the {@link Map} of query parameters to include in the request
+     * @param pathParams      the {@link Map} of path parameters to include in the request
      * @param headers         the {@link Map} of user-defined headers to include in
      *                        the request
      */
@@ -46,9 +45,7 @@ public class DeleteJsonRequestWithBody extends RestRequest<JsonElement, JsonElem
                                      JsonElement requestBody, Map<String, String> headers) {
         super(runtimePlatform, session, MethodKind.DELETE, restEndpoint, queryParams, pathParams, requestBody,
                 headers, Collections.emptyMap());
-
     }
-
 
     /**
      * Computes the request
@@ -73,6 +70,4 @@ public class DeleteJsonRequestWithBody extends RestRequest<JsonElement, JsonElem
         return handleResponse(response.getHeaders(), response.getStatus(), response.getStatusText(),
                 response.getBody(), Helpers::parseJson);
     }
-
-
 }

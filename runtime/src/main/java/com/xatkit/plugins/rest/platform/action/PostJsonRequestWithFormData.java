@@ -32,10 +32,9 @@ public class PostJsonRequestWithFormData extends RestRequest<JsonElement, JsonEl
      *
      * @param runtimePlatform the {@link RuntimePlatform} containing this action
      * @param session         the {@link XatkitSession} associated to this action
-     * @param method          the REST method to use
      * @param restEndpoint    the REST API endpoint to request
-     * @param queryParameters the {@link Map} of query parameters to include in the request
-     * @param pathParameters  the {@link Map} of path parameters to include in the request
+     * @param queryParams     the {@link Map} of query parameters to include in the request
+     * @param pathParams      the {@link Map} of path parameters to include in the request
      * @param headers         the {@link Map} of user-defined headers to include in
      *                        the request
      * @param formParams      the {@link Map} of form parameters to include in the request
@@ -47,7 +46,6 @@ public class PostJsonRequestWithFormData extends RestRequest<JsonElement, JsonEl
                 formParams);
 
     }
-
 
     /**
      * Computes the request
@@ -74,6 +72,4 @@ public class PostJsonRequestWithFormData extends RestRequest<JsonElement, JsonEl
         return handleResponse(response.getHeaders(), response.getStatus(), response.getStatusText(),
                 response.getBody(), Helpers::parseJson);
     }
-
-
 }

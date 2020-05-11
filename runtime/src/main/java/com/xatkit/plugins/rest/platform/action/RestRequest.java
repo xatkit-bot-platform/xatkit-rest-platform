@@ -77,7 +77,7 @@ public abstract class RestRequest<E, T> extends RuntimeAction<RestPlatform> {
     protected E requestBody;
 
     /**
-     * Constructs a new {@link RestAction}.
+     * Constructs a new {@link RestRequest}.
      * <p>
      * This method doesn't perform the REST API request, this is done asynchronously in the {@link #compute()} method.
      *
@@ -152,7 +152,6 @@ public abstract class RestRequest<E, T> extends RuntimeAction<RestPlatform> {
 
         return apiResponse;
     }
-
 
     /**
      * The kind of REST methods supported by this class.
