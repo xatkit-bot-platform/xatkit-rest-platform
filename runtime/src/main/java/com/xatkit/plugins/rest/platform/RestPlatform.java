@@ -8,10 +8,10 @@ import org.apache.commons.configuration2.Configuration;
 public class RestPlatform extends RuntimePlatform {
 
     @Getter
-    private RestPlatformConfiguration configuration;
+    private RestPlatformConfiguration restPlatformConfiguration;
 
     public RestPlatform(XatkitCore xatkitCore, Configuration configuration) {
         super(xatkitCore, configuration);
-        this.configuration = new RestPlatformConfiguration(configuration);
+        this.restPlatformConfiguration = new RestPlatformConfiguration(configuration);
     }
 }
