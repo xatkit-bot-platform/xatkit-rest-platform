@@ -1,13 +1,15 @@
-package com.xatkit.plugins.rest.platform;
+package com.xatkit.plugins.rest.platform.action;
 
 import com.xatkit.AbstractActionTest;
-import com.xatkit.plugins.rest.platform.action.RestRequest;
+import com.xatkit.plugins.rest.platform.RestPlatform;
 import org.apache.commons.configuration2.BaseConfiguration;
 
-public abstract class AbstractRestRequestTest<R extends RestRequest<?,?>> extends AbstractActionTest<R, RestPlatform> {
+public abstract class AbstractRestRequestTest<R extends RestRequest<?, ?>> extends AbstractActionTest<R, RestPlatform> {
 
-
-    protected static String VALID_POST_ENDPOINT = "http://httpbin.org/post";
+    /*
+     * Not used for the moment.
+     */
+//    protected static String VALID_POST_ENDPOINT = "http://httpbin.org/post";
 
     @Override
     protected RestPlatform getPlatform() {

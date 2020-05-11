@@ -1,9 +1,8 @@
-package com.xatkit.plugins.rest.platform;
+package com.xatkit.plugins.rest.platform.action;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.xatkit.plugins.rest.platform.action.GetJsonRequest;
 import com.xatkit.plugins.rest.platform.utils.ApiResponse;
 import org.junit.Test;
 
