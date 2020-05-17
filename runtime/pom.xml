@@ -17,9 +17,17 @@
         <assertj.version>3.14.0</assertj.version>
         <mockito-version>3.3.3</mockito-version>
         <lombok.version>1.18.12</lombok.version>
+        <unirest.version>1.4.9</unirest.version>
     </properties>
 
     <dependencies>
+
+        <!-- Unirest -->
+
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+        </dependency>
 
         <!-- Xatkit Internal -->
 
@@ -66,6 +74,14 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- Unirest -->
+
+            <dependency>
+                <groupId>com.mashape.unirest</groupId>
+                <artifactId>unirest-java</artifactId>
+                <version>${unirest.version}</version>
+            </dependency>
 
             <!-- Utils -->
 
