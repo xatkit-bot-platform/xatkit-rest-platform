@@ -4,7 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.request.HttpRequest;
 import com.xatkit.core.platform.RuntimePlatform;
 import com.xatkit.core.platform.action.RuntimeAction;
-import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.rest.platform.RestPlatform;
 import com.xatkit.plugins.rest.platform.utils.ApiResponse;
 import fr.inria.atlanmod.commons.log.Log;
@@ -86,8 +86,8 @@ public abstract class RestRequest<E, T> extends RuntimeAction<RestPlatform> {
      * <p>
      * This method doesn't perform the REST API request, this is done asynchronously in the {@link #compute()} method.
      *
-     * @param runtimePlatform the {@link RuntimePlatform} containing this action
-     * @param session         the {@link XatkitSession} associated to this action
+     * @param platform the {@link RuntimePlatform} containing this action
+     * @param context         the {@link StateContext} associated to this action
      * @param method          the REST method to use
      * @param restEndpoint    the REST API endpoint to request
      * @param queryParameters the {@link Map} of query parameters to include in the request
@@ -99,7 +99,7 @@ public abstract class RestRequest<E, T> extends RuntimeAction<RestPlatform> {
      * @throws IllegalArgumentException if the provided {@code method} is {@code null}, or if the provided {@code
      *                                  restEndpoint} is {@code null} or {@code empty}
      */
-    public RestRequest(@NonNull RestPlatform runtimePlatform, @NonNull XatkitSession session,
+    public RestRequest(@NonNull RestPlatform platform, @NonNull StateContext context,
                        @NonNull MethodKind method,
                        @NonNull String restEndpoint,
                        @Nullable Map<String, Object> queryParameters,
@@ -108,7 +108,7 @@ public abstract class RestRequest<E, T> extends RuntimeAction<RestPlatform> {
                        @Nullable Map<String, String> headers,
                        @Nullable Map<String, Object> formParameters
     ) {
-        super(runtimePlatform, session);
+        super(platform, context);
         checkArgument(!restEndpoint.isEmpty(), "Cannot create a {0} for the following endpoint: {1}",
                 this.getClass().getSimpleName(), restEndpoint);
         this.method = method;

@@ -6,7 +6,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.request.HttpRequest;
 import com.mashape.unirest.request.HttpRequestWithBody;
 import com.xatkit.core.platform.RuntimePlatform;
-import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.rest.platform.RestPlatform;
 
 import java.util.Map;
@@ -25,8 +25,8 @@ public class PutJsonRequestWithFormData extends JsonRestRequest<JsonElement> {
     /**
      * Constructs a PUT Json request with form data
      *
-     * @param runtimePlatform the {@link RuntimePlatform} containing this action
-     * @param session         the {@link XatkitSession} associated to this action
+     * @param platform the {@link RuntimePlatform} containing this action
+     * @param context         the {@link StateContext} associated to this action
      * @param restEndpoint    the REST API endpoint to request
      * @param queryParams     the {@link Map} of query parameters to include in the request
      * @param pathParams      the {@link Map} of path parameters to include in the request
@@ -34,10 +34,10 @@ public class PutJsonRequestWithFormData extends JsonRestRequest<JsonElement> {
      *                        the request
      * @param formParams      the {@link Map} of form parameters to include in the request
      */
-    public PutJsonRequestWithFormData(RestPlatform runtimePlatform, XatkitSession session, String restEndpoint,
+    public PutJsonRequestWithFormData(RestPlatform platform, StateContext context, String restEndpoint,
                                       Map<String, Object> queryParams, Map<String, String> pathParams, Map<String,
             String> headers, Map<String, Object> formParams) {
-        super(runtimePlatform, session, MethodKind.PUT, restEndpoint, queryParams, pathParams, null, headers,
+        super(platform, context, MethodKind.PUT, restEndpoint, queryParams, pathParams, null, headers,
                 formParams);
     }
 

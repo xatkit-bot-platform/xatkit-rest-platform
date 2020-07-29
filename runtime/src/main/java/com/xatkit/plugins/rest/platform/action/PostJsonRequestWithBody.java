@@ -6,7 +6,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.request.HttpRequest;
 import com.mashape.unirest.request.HttpRequestWithBody;
 import com.xatkit.core.platform.RuntimePlatform;
-import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.rest.platform.RestPlatform;
 
 import java.util.Collections;
@@ -27,8 +27,8 @@ public class PostJsonRequestWithBody extends JsonRestRequest<JsonElement> {
     /**
      * Constructs a POST Json request with a body parameter
      *
-     * @param runtimePlatform the {@link RuntimePlatform} containing this action
-     * @param session         the {@link XatkitSession} associated to this action
+     * @param platform the {@link RuntimePlatform} containing this action
+     * @param context         the {@link StateContext} associated to this action
      * @param restEndpoint    the REST API endpoint to request
      * @param requestBody     the body of the request
      * @param queryParams     the {@link Map} of query parameters to include in the request
@@ -36,10 +36,10 @@ public class PostJsonRequestWithBody extends JsonRestRequest<JsonElement> {
      * @param headers         the {@link Map} of user-defined headers to include in
      *                        the request
      */
-    public PostJsonRequestWithBody(RestPlatform runtimePlatform, XatkitSession session, String restEndpoint,
+    public PostJsonRequestWithBody(RestPlatform platform, StateContext context, String restEndpoint,
                                    Map<String, Object> queryParams, Map<String, String> pathParams,
                                    JsonElement requestBody, Map<String, String> headers) {
-        super(runtimePlatform, session, MethodKind.POST, restEndpoint, queryParams, pathParams, requestBody, headers,
+        super(platform, context, MethodKind.POST, restEndpoint, queryParams, pathParams, requestBody, headers,
                 Collections.emptyMap());
     }
 
