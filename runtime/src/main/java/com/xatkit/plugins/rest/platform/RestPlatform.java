@@ -54,7 +54,7 @@ public class RestPlatform extends RuntimePlatform {
                                                                @Nullable Map<String, String> pathParams,
                                                                @Nullable Map<String, String> headers) {
         DeleteJsonRequest action = new DeleteJsonRequest(this, context, restEndpoint, queryParams, pathParams, headers);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -77,7 +77,7 @@ public class RestPlatform extends RuntimePlatform {
                                                               @Nullable Map<String, String> headers) {
         DeleteJsonRequestWithBody action = new DeleteJsonRequestWithBody(this, context, restEndpoint, queryParams,
                 pathParams, requestBody, headers);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -100,7 +100,7 @@ public class RestPlatform extends RuntimePlatform {
                                                                   @Nullable Map<String, Object> formParams) {
         DeleteJsonRequestWithFormData action = new DeleteJsonRequestWithFormData(this, context, restEndpoint,
                 queryParams, pathParams, headers, formParams);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -120,7 +120,7 @@ public class RestPlatform extends RuntimePlatform {
                                                             @Nullable Map<String, String> pathParams,
                                                             @Nullable Map<String, String> headers) {
         GetJsonRequest action = new GetJsonRequest(this, context, restEndpoint, queryParams, pathParams, headers);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -143,7 +143,7 @@ public class RestPlatform extends RuntimePlatform {
                                                                     @Nullable Map<String, String> headers) {
         GetJsonRequestWithBody action = new GetJsonRequestWithBody(this, context, restEndpoint, queryParams,
                 pathParams, requestBody, headers);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -166,7 +166,7 @@ public class RestPlatform extends RuntimePlatform {
                                                                         @Nullable Map<String, Object> formParams) {
         GetJsonRequestWithFormData action = new GetJsonRequestWithFormData(this, context, restEndpoint,
                 queryParams, pathParams, headers, formParams);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -189,7 +189,7 @@ public class RestPlatform extends RuntimePlatform {
                                                                      @Nullable Map<String, String> headers) {
         PostJsonRequestWithBody action = new PostJsonRequestWithBody(this, context, restEndpoint, queryParams,
                 pathParams, requestBody, headers);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -212,7 +212,7 @@ public class RestPlatform extends RuntimePlatform {
                                                                          @Nullable Map<String, Object> formParams) {
         PostJsonRequestWithFormData action = new PostJsonRequestWithFormData(this, context, restEndpoint,
                 queryParams, pathParams, headers, formParams);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -235,7 +235,7 @@ public class RestPlatform extends RuntimePlatform {
                                                                     @Nullable Map<String, String> headers) {
         PutJsonRequestWithBody action = new PutJsonRequestWithBody(this, context, restEndpoint, queryParams,
                 pathParams, requestBody, headers);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 
@@ -258,7 +258,7 @@ public class RestPlatform extends RuntimePlatform {
                                                                         @Nullable Map<String, Object> formParams) {
         PutJsonRequestWithFormData action = new PutJsonRequestWithFormData(this, context, restEndpoint,
                 queryParams, pathParams, headers, formParams);
-        RuntimeActionResult result = this.executeRuntimeAction(action);
+        RuntimeActionResult result = action.call();
         return (ApiResponse<JsonElement>) result.getResult();
     }
 }
