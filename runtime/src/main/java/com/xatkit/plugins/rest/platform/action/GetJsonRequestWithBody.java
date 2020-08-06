@@ -4,15 +4,12 @@ package com.xatkit.plugins.rest.platform.action;
 import com.google.gson.JsonElement;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.request.HttpRequest;
-import com.mashape.unirest.request.HttpRequestWithBody;
 import com.xatkit.core.platform.RuntimePlatform;
 import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.rest.platform.RestPlatform;
 
 import java.util.Collections;
 import java.util.Map;
-
-import static java.util.Objects.nonNull;
 
 /**
  * A GET REST action with body parameter for Json payloads.
@@ -49,9 +46,9 @@ public class GetJsonRequestWithBody extends JsonRestRequest<JsonElement> {
         request.headers(this.headers);
         request.queryString(this.queryParameters);
         this.pathParameters.forEach(request::routeParam);
-        if(nonNull(this.requestBody)) {
-            ((HttpRequestWithBody) request).body(this.requestBody.toString());
-        }
+        /*
+         * We cannot set the body here, the type of request is GetRequest and it doesn't extend HttpRequestWithBody.
+         */
         return request;
     }
 }
