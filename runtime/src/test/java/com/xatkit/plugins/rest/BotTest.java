@@ -1,7 +1,5 @@
-package com.xatkit.plugins.rest.platform;
+package com.xatkit.plugins.rest;
 
-
-import com.xatkit.Xatkit;
 
 /**
  * This class is used to run existing bots, and should not contain test cases.
@@ -9,11 +7,11 @@ import com.xatkit.Xatkit;
 public class BotTest {
 
     public static void main(String[] args) throws Exception {
-        Xatkit.main(new String[]{"<Path to your .properties file>"});
-        try {
-            Thread.sleep(10000000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        Xatkit.main(new String[]{"<Path to your .properties file>"});
+//        try {
+//            Thread.sleep(10000000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

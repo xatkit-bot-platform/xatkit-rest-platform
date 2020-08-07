@@ -13,6 +13,8 @@ public abstract class AbstractRestRequestTest<R extends RestRequest<?, ?>> exten
 
     @Override
     protected RestPlatform getPlatform() {
-        return new RestPlatform(mockedXatkitCore, new BaseConfiguration());
+        RestPlatform restPlatform = new RestPlatform();
+        restPlatform.start(mockedXatkitCore, new BaseConfiguration());
+        return restPlatform;
     }
 }

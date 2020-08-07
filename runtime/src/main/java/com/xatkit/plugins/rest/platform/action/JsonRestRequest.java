@@ -3,7 +3,7 @@ package com.xatkit.plugins.rest.platform.action;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
-import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.rest.platform.RestPlatform;
 import fr.inria.atlanmod.commons.log.Log;
 import lombok.NonNull;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 public abstract class JsonRestRequest<E> extends RestRequest<E, JsonElement> {
 
-    public JsonRestRequest(@NonNull RestPlatform runtimePlatform, @NonNull XatkitSession session,
+    public JsonRestRequest(@NonNull RestPlatform platform, @NonNull StateContext context,
                            @NonNull MethodKind method,
                            @NonNull String restEndpoint,
                            @Nullable Map<String, Object> queryParameters,
@@ -24,7 +24,7 @@ public abstract class JsonRestRequest<E> extends RestRequest<E, JsonElement> {
                            @Nullable Map<String, String> headers,
                            @Nullable Map<String, Object> formParameters
     ) {
-        super(runtimePlatform, session, method, restEndpoint, queryParameters, pathParameters, requestBody, headers,
+        super(platform, context, method, restEndpoint, queryParameters, pathParameters, requestBody, headers,
                 formParameters);
     }
 

@@ -6,7 +6,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.request.HttpRequest;
 import com.mashape.unirest.request.HttpRequestWithBody;
 import com.xatkit.core.platform.RuntimePlatform;
-import com.xatkit.core.session.XatkitSession;
+import com.xatkit.execution.StateContext;
 import com.xatkit.plugins.rest.platform.RestPlatform;
 
 import java.util.Collections;
@@ -24,17 +24,17 @@ public class DeleteJsonRequest extends JsonRestRequest<JsonElement> {
     /**
      * Constructs A DELETE action for Json expected response
      *
-     * @param runtimePlatform the {@link RuntimePlatform} containing this action
-     * @param session         the {@link XatkitSession} associated to this action
+     * @param platform the {@link RuntimePlatform} containing this action
+     * @param context         the {@link StateContext} associated to this action
      * @param restEndpoint    the REST API endpoint to request
      * @param queryParams     the {@link Map} of query parameters to include in the request
      * @param pathParams      the {@link Map} of path parameters to include in the request
      * @param headers         the {@link Map} of user-defined headers to include in
      *                        the request
      */
-    public DeleteJsonRequest(RestPlatform runtimePlatform, XatkitSession session, String restEndpoint, Map<String,
+    public DeleteJsonRequest(RestPlatform platform, StateContext context, String restEndpoint, Map<String,
             Object> queryParams, Map<String, String> pathParams, Map<String, String> headers) {
-        super(runtimePlatform, session, MethodKind.DELETE, restEndpoint, queryParams, pathParams, null, headers,
+        super(platform, context, MethodKind.DELETE, restEndpoint, queryParams, pathParams, null, headers,
                 Collections.emptyMap());
     }
 
