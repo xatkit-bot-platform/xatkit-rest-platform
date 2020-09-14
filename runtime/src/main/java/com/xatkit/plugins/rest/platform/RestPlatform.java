@@ -1,7 +1,7 @@
 package com.xatkit.plugins.rest.platform;
 
 import com.google.gson.JsonElement;
-import com.xatkit.core.XatkitCore;
+import com.xatkit.core.XatkitBot;
 import com.xatkit.core.platform.RuntimePlatform;
 import com.xatkit.core.platform.action.RuntimeActionResult;
 import com.xatkit.execution.StateContext;
@@ -33,8 +33,8 @@ public class RestPlatform extends RuntimePlatform {
     }
 
     @Override
-    public void start(@NonNull XatkitCore xatkitCore, @NonNull Configuration configuration) {
-        super.start(xatkitCore, configuration);
+    public void start(@NonNull XatkitBot xatkitBot, @NonNull Configuration configuration) {
+        super.start(xatkitBot, configuration);
         this.restPlatformConfiguration = new RestPlatformConfiguration(configuration);
     }
 
