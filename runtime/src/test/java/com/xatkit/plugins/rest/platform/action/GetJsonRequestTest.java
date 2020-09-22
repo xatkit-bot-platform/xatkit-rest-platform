@@ -17,37 +17,37 @@ public class GetJsonRequestTest extends AbstractRestRequestTest<GetJsonRequest> 
 
     @Test
     public void constructValidGetJsonRequest() {
-        new GetJsonRequest(platform, session, VALID_GET_ENDPOINT, Collections.emptyMap(),
+        new GetJsonRequest(platform, context, VALID_GET_ENDPOINT, Collections.emptyMap(),
                 Collections.emptyMap(), Collections.emptyMap());
     }
 
     @Test
     public void constructNullHeaders() {
-        new GetJsonRequest(platform, session, VALID_GET_ENDPOINT, Collections.emptyMap(),
+        new GetJsonRequest(platform, context, VALID_GET_ENDPOINT, Collections.emptyMap(),
                 Collections.emptyMap(), null);
     }
 
     @Test(expected = NullPointerException.class)
     public void constructNullEndpoint() {
-        new GetJsonRequest(platform, session, null, Collections.emptyMap(), Collections.emptyMap(),
+        new GetJsonRequest(platform, context, null, Collections.emptyMap(), Collections.emptyMap(),
                 Collections.emptyMap());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void constructEmptyEndpoint() {
-        new GetJsonRequest(platform, session, "", Collections.emptyMap(), Collections.emptyMap(),
+        new GetJsonRequest(platform, context, "", Collections.emptyMap(), Collections.emptyMap(),
                 Collections.emptyMap());
     }
 
     @Test
     public void constructNullParams() {
-        new GetJsonRequest(platform, session, VALID_GET_ENDPOINT, null, null, null);
+        new GetJsonRequest(platform, context, VALID_GET_ENDPOINT, null, null, null);
 
     }
 
     @Test
     public void computeValidGetEndpoint() throws Exception {
-        GetJsonRequest getJsonRequest = new GetJsonRequest(platform, session, VALID_GET_ENDPOINT,
+        GetJsonRequest getJsonRequest = new GetJsonRequest(platform, context, VALID_GET_ENDPOINT,
                 Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap());
 
         ApiResponse<JsonElement> response = getJsonRequest.compute();
@@ -58,7 +58,7 @@ public class GetJsonRequestTest extends AbstractRestRequestTest<GetJsonRequest> 
 
     @Test
     public void computeValidGetRequestWithQueryParameters() throws Exception {
-        GetJsonRequest getJsonRequest = new GetJsonRequest(platform, session, VALID_GET_ENDPOINT, ImmutableMap.<String,
+        GetJsonRequest getJsonRequest = new GetJsonRequest(platform, context, VALID_GET_ENDPOINT, ImmutableMap.<String,
                 Object>builder().put("foo", "bar").build(), Collections.emptyMap(), Collections.emptyMap());
 
         ApiResponse<JsonElement> response = getJsonRequest.compute();

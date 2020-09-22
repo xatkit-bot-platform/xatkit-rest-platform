@@ -17,7 +17,7 @@ public class GetJsonRequestWithBodyTest extends AbstractRestRequestTest<GetJsonR
     public void computeValidGetEndpoint() throws Exception {
         JsonObject jsonBody = new JsonObject();
         jsonBody.addProperty("key", "value");
-        GetJsonRequestWithBody getJsonRequestWithBody = new GetJsonRequestWithBody(platform, session,
+        GetJsonRequestWithBody getJsonRequestWithBody = new GetJsonRequestWithBody(platform, context,
                 VALID_GET_ENDPOINT, Collections.emptyMap(), Collections.emptyMap(), jsonBody, Collections.emptyMap());
         ApiResponse<JsonElement> response = getJsonRequestWithBody.compute();
         assertThat(response.getStatus()).as("Valid response status").isEqualTo(200);
